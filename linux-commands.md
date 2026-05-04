@@ -54,6 +54,7 @@
 | `id` | `id` | Show your own uid, gid, and groups |
 | `id` | `id root` | Show uid, gid, and groups for the root user |
 | `whoami` | `whoami` | Print your current username |
+| `groups` | `groups` | List all groups the current user belongs to |
 
 ---
 
@@ -72,9 +73,79 @@
 
 ---
 
-## Things I learned today
+# Users, Groups & Permissions
+
+## Viewing Users and Groups
+| Command | What it does |
+|---|---|
+| `cat /etc/passwd` | List all system users |
+| `cat /etc/group` | List all groups and their members |
+| `groups` | Show groups the current user belongs to |
+
+### /etc/passwd format
+```
+username : x : uid : gid : user_info : home_directory : shell
+test    : x  : 1000: 1000: Test      : /home/test     : /bin/bash
+```
+- `x` in the password field means the password is stored in `/etc/shadow` (not shown here)
+
+### /etc/group format
+```
+group_name : x : group_id : members
+sudo       : x : 27       : test
+```
+ 
+---
+
+## Permission Bits
+ 
+Every file has 3 permission groups: **owner**, **group**, **others**
+ 
+```
+-rwxr-xr--
+ ^^^         owner  (rwx = read, write, execute)
+    ^^^      group  (r-x = read, no write, execute)
+       ^^^   others (r-- = read only)
+```
+| Symbol | Number | Meaning |
+|---|---|---|
+| `r` | 4 | Read |
+| `w` | 2 | Write |
+| `x` | 1 | Execute |
+| `-` | 0 | No permission |
+
+### Common chmod values
+| Command | Result | Who can do what |
+|---|---|---|
+| `chmod 777 file` | `rwxrwxrwx` | Everyone can read, write, execute |
+| `chmod 755 file` | `rwxr-xr-x` | Owner full, others can read & run |
+| `chmod 700 file` | `rwx------` | Only owner can do anything |
+| `chmod 644 file` | `rw-r--r--` | Owner read/write, others read only |
+| `chmod 600 file` | `rw-------` | Only owner can read/write (e.g. SSH keys) |
+ 
+> 💡 **SOC tip:** Files with `777` permissions are a red flag — anyone can modify them.
+ 
+---
+
+## chmod & chown
+ 
+| Command | Example | What it does |
+|---|---|---|
+| `chmod` | `chmod 700 secret.txt` | Set permissions using octal number |
+| `chmod` | `chmod +x script.sh` | Add execute permission |
+| `chmod` | `chmod -w file.txt` | Remove write permission |
+| `chown` | `chown alice file.txt` | Change owner of a file |
+| `chown` | `chown alice:devs file.txt` | Change owner AND group |
+| `chown` | `chown -R alice myfolder/` | Change owner recursively for a folder |
+ 
+---
+
+## Things I learned
 - `cd -` is a quick way to toggle between two directories
 - `touch -r` can copy timestamps between files, not just create files
 - `file` is useful to check if something is really what its extension says
 - `less` is better than `cat` for large log files — cat floods the terminal
 - `tail -f` is how SOC analysts watch logs in real time
+- `/etc/passwd` doesn't store actual passwords — they're hashed in `/etc/shadow`
+- `chmod 600` is the correct permission for SSH private keys
+- Files with `777` permissions are a security red flag worth investigating

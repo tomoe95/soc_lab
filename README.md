@@ -31,14 +31,15 @@ detection engineering, incident response, and Linux administration.
 
 ---
 
-## ✅ Current Status — Day 2 of 120
+## ✅ Current Status — Day 3 of 120
 
 ### Completed
 - [x] **Day 1** — Installed VirtualBox, created Ubuntu 24.04 LTS ARM64 VM (4GB RAM, 50GB disk)
-- [x] **Day 2** — Learning Linux filesystem navigation and core commands
+- [x] **Day 2** — Linux filesystem navigation, core commands, cheat sheet written
+- [x] **Day 3** — Users, groups, permissions (`chmod`, `chown`, `/etc/passwd`, `/etc/group`)
 
-### In Progress
-- [ ] **Day 2** — Writing Linux command cheat sheet (`docs/linux-commands.md`)
+### Up Next
+- [ ] **Day 4** — Bash scripting basics (write 3 small scripts)
 
 ---
 
@@ -64,7 +65,7 @@ detection engineering, incident response, and Linux administration.
 ```
 soc-lab/
 ├── docs/
-│   └── linux-commands.md     # Linux command cheat sheet
+│   └── linux-commands.md     # Linux command cheat sheet (nav, permissions, users)
 ├── rules/                    # Custom Wazuh detection rules
 ├── playbooks/                # Shuffle SOAR playbooks and runbooks
 ├── scripts/                  # Log analysis and automation scripts
@@ -92,8 +93,9 @@ soc-lab/
 
 | Day | Task | Commit |
 |---|---|---|
-| 1 | Installed VirtualBox, created Ubuntu 24.04 LTS VM | `chore: init ubuntu vm for soc lab environment` |
-| 2 | Linux filesystem navigation and core commands | `docs: add linux filesystem navigation cheat sheet` |
+| 1 | Installed VirtualBox, created Ubuntu 24.04 LTS ARM64 VM | `chore: init ubuntu vm for soc lab environment` |
+| 2 | Linux filesystem navigation and core commands cheat sheet | `docs: add linux filesystem navigation cheat sheet` |
+| 3 | Users, groups, permissions — chmod, chown, /etc/passwd | `docs: add user permissions and chmod reference notes` |
 
 ---
 
