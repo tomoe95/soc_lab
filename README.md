@@ -31,15 +31,16 @@ detection engineering, incident response, and Linux administration.
 
 ---
 
-## ✅ Current Status — Day 3 of 120
+## ✅ Current Status — Day 4 of 120
 
 ### Completed
 - [x] **Day 1** — Installed VirtualBox, created Ubuntu 24.04 LTS ARM64 VM (4GB RAM, 50GB disk)
 - [x] **Day 2** — Linux filesystem navigation, core commands, cheat sheet written
 - [x] **Day 3** — Users, groups, permissions (`chmod`, `chown`, `/etc/passwd`, `/etc/group`)
+- [x] **Day 4** — Bash scripting basics: wrote 3 scripts (uptime, process monitor, log analysis)
 
 ### Up Next
-- [ ] **Day 4** — Bash scripting basics (write 3 small scripts)
+- [ ] **Day 5** — SSH & remote access (key-based auth, disable password login)
 
 ---
 
@@ -65,12 +66,15 @@ detection engineering, incident response, and Linux administration.
 ```
 soc-lab/
 ├── docs/
-│   └── linux-commands.md     # Linux command cheat sheet (nav, permissions, users)
-├── rules/                    # Custom Wazuh detection rules
-├── playbooks/                # Shuffle SOAR playbooks and runbooks
-├── scripts/                  # Log analysis and automation scripts
-├── dashboards/               # Dashboard screenshots and configs
-├── portfolio/                # Incident reports and writeups
+│   └── linux-commands.md        # Linux command cheat sheet (nav, permissions, users)
+├── scripts/
+│   ├── uptime.sh                # Prints system uptime with hostname and date
+│   ├── processes.sh             # Process monitor with CPU/memory sort, high CPU alert, log output
+│   └── count-logs.sh            # Log analyzer — line counts, errors, failed SSH logins
+├── rules/                       # Custom Wazuh detection rules
+├── playbooks/                   # Shuffle SOAR playbooks and runbooks
+├── dashboards/                  # Dashboard screenshots and configs
+├── portfolio/                   # Incident reports and writeups
 └── README.md
 ```
 
@@ -96,6 +100,7 @@ soc-lab/
 | 1 | Installed VirtualBox, created Ubuntu 24.04 LTS ARM64 VM | `chore: init ubuntu vm for soc lab environment` |
 | 2 | Linux filesystem navigation and core commands cheat sheet | `docs: add linux filesystem navigation cheat sheet` |
 | 3 | Users, groups, permissions — chmod, chown, /etc/passwd | `docs: add user permissions and chmod reference notes` |
+| 4 | Bash scripting — uptime, process monitor, log analysis scripts | `feat(scripts): add system info, process monitor, and log analysis scripts` |
 
 ---
 
