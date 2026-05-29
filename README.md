@@ -31,16 +31,17 @@ detection engineering, incident response, and Linux administration.
 
 ---
 
-## ✅ Current Status — Day 4 of 120
+## ✅ Current Status — Day 5 of 120
 
 ### Completed
 - [x] **Day 1** — Installed VirtualBox, created Ubuntu 24.04 LTS ARM64 VM (4GB RAM, 50GB disk)
 - [x] **Day 2** — Linux filesystem navigation, core commands, cheat sheet written
 - [x] **Day 3** — Users, groups, permissions (`chmod`, `chown`, `/etc/passwd`, `/etc/group`)
 - [x] **Day 4** — Bash scripting basics: wrote 3 scripts (uptime, process monitor, log analysis)
+- [x] **Day 5** — SSH key-based auth, VirtualBox port forwarding, disabled password login
 
 ### Up Next
-- [ ] **Day 5** — SSH & remote access (key-based auth, disable password login)
+- [ ] **Day 6** — systemd & service management (`systemctl`, `journalctl`)
 
 ---
 
@@ -50,6 +51,7 @@ detection engineering, incident response, and Linux administration.
 |---|---|---|
 | VirtualBox | VM hypervisor | ✅ Installed |
 | Ubuntu 24.04 LTS (ARM64) | Primary lab OS | ✅ Running |
+| OpenSSH | Remote access via SSH key-based auth | ✅ Configured |
 | Wazuh | SIEM & agent management | ⬜ Pending |
 | Suricata | Network IDS | ⬜ Pending |
 | Zeek | Network analysis | ⬜ Pending |
@@ -66,7 +68,7 @@ detection engineering, incident response, and Linux administration.
 ```
 soc-lab/
 ├── docs/
-│   └── linux-commands.md        # Linux command cheat sheet (nav, permissions, users)
+│   └── linux-commands.md        # Linux cheat sheet (nav, permissions, users, SSH)
 ├── scripts/
 │   ├── uptime.sh                # Prints system uptime with hostname and date
 │   ├── processes.sh             # Process monitor with CPU/memory sort, high CPU alert, log output
@@ -85,7 +87,9 @@ soc-lab/
 ```
 [ Mac Host ]
      │
-     └── VirtualBox
+     ├── SSH (port 2222) ──────────────────────────┐
+     │                                             ▼
+     └── VirtualBox                          UbuntuVM
            ├── UbuntuVM (Wazuh Manager + Dashboard)   ← main SIEM
            ├── Windows VM (Wazuh Agent)                ← coming Day 11
            └── Metasploitable VM (vulnerable target)   ← coming Day 91
@@ -101,6 +105,7 @@ soc-lab/
 | 2 | Linux filesystem navigation and core commands cheat sheet | `docs: add linux filesystem navigation cheat sheet` |
 | 3 | Users, groups, permissions — chmod, chown, /etc/passwd | `docs: add user permissions and chmod reference notes` |
 | 4 | Bash scripting — uptime, process monitor, log analysis scripts | `feat(scripts): add system info, process monitor, and log analysis scripts` |
+| 5 | SSH key-based auth, port forwarding, disabled password login | `chore: configure ssh key-based auth on ubuntu vm` |
 
 ---
 
