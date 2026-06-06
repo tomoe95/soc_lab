@@ -206,18 +206,59 @@ Since VirtualBox NAT blocks direct host-to-VM connections, forward a port:
 Then connect with: `ssh -p 2222 user@127.0.0.1`
  
 ---
+
+# systemd & Service Management
+
+## systemctl — Control Services
+| Command | Example | What it does |
+|---|---|---|
+| `systemctl status` | `sudo systemctl status ssh` | Show if service is running |
+| `systemctl start` | `sudo systemctl start ssh` | Start a service |
+| `systemctl stop` | `sudo systemctl stop ssh` | Stop a service |
+| `systemctl restart` | `sudo systemctl restart ssh` | Stop then start a service |
+| `systemctl enable` | `sudo systemctl enable ssh` | Auto-start on boot |
+| `systemctl disable` | `sudo systemctl disable ssh` | Disable auto-start on boot |
+
+## journalctl — View Logs
+| Command | What it does |
+|---|---|
+| `journalctl` | View all system logs |
+| `journalctl -u ssh` | View logs for a specific service |
+| `journalctl -f` | Watch logs in real time |
+| `journalctl -b` | Show logs since last boot only |
+| `journalctl -n 20` | Show last 20 lines |
+| `journalctl -p err` | Show error level logs only |
+| `journalctl --since "2024-01-01" --until "2024-12-31"` | Filter by time range |
+
+### 📍 Log levels (most → least severe)
+`emerg` → `alert` → `crit` → `err` → `warning` → `notice` → `info` → `debug`
+
+## Service Unit File Structure
+> Location: `/lib/systemd/system/servicename.service`
+
+| Section | Purpose |
+|---|---|
+| `[Unit]` | Description and dependencies |
+| `[Service]` | How to start, stop, reload the service |
+| `[Install]` | When to start during boot |
+
+### Key fields
+| Field | Meaning |
+|---|---|
+| `After=` | Start only after these services are running |
+| `ExecStart=` | Command that starts the service |
+| `ExecReload=` | Command to reload config without full restart |
+| `Restart=on-failure` | Auto-restart if the service crashes |
+| `RestartSec=42s` | Wait this long before restarting after a crash |
+| `WantedBy=multi-user.target` | Start on normal system boot |
+| `EnvironmentFile=` | Load extra settings from a file |
+| `Type=notify` | Service tells systemd when it's fully ready |
+
  
 ## Things I learned
-- `cd -` is a quick way to toggle between two directories
-- `touch -r` can copy timestamps between files, not just create files
-- `file` is useful to check if something is really what its extension says
-- `less` is better than `cat` for large log files — cat floods the terminal
-- `tail -f` is how SOC analysts watch logs in real time
-- `/etc/passwd` doesn't store actual passwords — they're hashed in `/etc/shadow`
-- `chmod 600` is the correct permission for SSH private keys
-- Files with `777` permissions are a security red flag worth investigating
-- SSH key-based auth blocks brute force attacks — no password means nothing to guess
-- On VirtualBox NAT, use port forwarding to SSH from Mac into the VM
-- Always test SSH key login works BEFORE disabling password auth
-- On a real remote server, losing your SSH key with password auth disabled = permanently locked out
-- VirtualBox console is a local fallback — this risk only matters on real remote servers
+- systemd has two SSH units: ssh.service (always running) and ssh.socket (starts on demand)
+- Disabling ssh.service doesn't fully disable SSH if ssh.socket is still active
+- journalctl -p err filters only errors — useful for quick incident triage
+- apparmor="DENIED" in logs means a process was blocked from accessing a file
+- A service without Restart=on-failure won't recover if killed — attackers exploit this
+- ConditionPathExists in unit files means the service only starts if certain files exist
