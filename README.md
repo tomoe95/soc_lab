@@ -31,7 +31,7 @@ detection engineering, incident response, and Linux administration.
 
 ---
 
-## ✅ Current Status — Day 5 of 120
+## ✅ Current Status — Day 6 of 120
 
 ### Completed
 - [x] **Day 1** — Installed VirtualBox, created Ubuntu 24.04 LTS ARM64 VM (4GB RAM, 50GB disk)
@@ -39,9 +39,10 @@ detection engineering, incident response, and Linux administration.
 - [x] **Day 3** — Users, groups, permissions (`chmod`, `chown`, `/etc/passwd`, `/etc/group`)
 - [x] **Day 4** — Bash scripting basics: wrote 3 scripts (uptime, process monitor, log analysis)
 - [x] **Day 5** — SSH key-based auth, VirtualBox port forwarding, disabled password login
+- [x] **Day 6** — systemd & service management (`systemctl`, `journalctl`, unit files)
 
 ### Up Next
-- [ ] **Day 6** — systemd & service management (`systemctl`, `journalctl`)
+- [ ] **Day 7** — Review & lab snapshot (VirtualBox snapshot, write lab README)
 
 ---
 
@@ -52,6 +53,7 @@ detection engineering, incident response, and Linux administration.
 | VirtualBox | VM hypervisor | ✅ Installed |
 | Ubuntu 24.04 LTS (ARM64) | Primary lab OS | ✅ Running |
 | OpenSSH | Remote access via SSH key-based auth | ✅ Configured |
+| systemd | Service management & logging | ✅ Practiced |
 | Wazuh | SIEM & agent management | ⬜ Pending |
 | Suricata | Network IDS | ⬜ Pending |
 | Zeek | Network analysis | ⬜ Pending |
@@ -68,7 +70,7 @@ detection engineering, incident response, and Linux administration.
 ```
 soc-lab/
 ├── docs/
-│   └── linux-commands.md        # Linux cheat sheet (nav, permissions, users, SSH)
+│   └── linux-commands.md        # Linux cheat sheet (nav, permissions, users, SSH, systemd)
 ├── scripts/
 │   ├── uptime.sh                # Prints system uptime with hostname and date
 │   ├── processes.sh             # Process monitor with CPU/memory sort, high CPU alert, log output
@@ -106,6 +108,7 @@ soc-lab/
 | 3 | Users, groups, permissions — chmod, chown, /etc/passwd | `docs: add user permissions and chmod reference notes` |
 | 4 | Bash scripting — uptime, process monitor, log analysis scripts | `feat(scripts): add system info, process monitor, and log analysis scripts` |
 | 5 | SSH key-based auth, port forwarding, disabled password login | `chore: configure ssh key-based auth on ubuntu vm` |
+| 6 | systemd service management, journalctl log analysis, unit files | `docs: add systemd and journalctl reference notes` |
 
 ---
 
@@ -117,3 +120,4 @@ soc-lab/
 - [Atomic Red Team](https://github.com/redcanaryco/atomic-red-team)
 - [Shuffle SOAR](https://shuffler.io/docs)
 - [T-Pot Honeypot](https://github.com/telekom-security/tpotce)
+- [systemd Documentation](https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units)
