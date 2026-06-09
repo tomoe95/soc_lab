@@ -31,18 +31,21 @@ detection engineering, incident response, and Linux administration.
 
 ---
 
-## ✅ Current Status — Day 6 of 120
+## ✅ Current Status — Day 7 of 120
 
-### Completed
+### ✅ Week 1 Complete — Linux Fundamentals
 - [x] **Day 1** — Installed VirtualBox, created Ubuntu 24.04 LTS ARM64 VM (4GB RAM, 50GB disk)
 - [x] **Day 2** — Linux filesystem navigation, core commands, cheat sheet written
 - [x] **Day 3** — Users, groups, permissions (`chmod`, `chown`, `/etc/passwd`, `/etc/group`)
 - [x] **Day 4** — Bash scripting basics: wrote 3 scripts (uptime, process monitor, log analysis)
 - [x] **Day 5** — SSH key-based auth, VirtualBox port forwarding, disabled password login
 - [x] **Day 6** — systemd & service management (`systemctl`, `journalctl`, unit files)
+- [x] **Day 7** — Week 1 review, VM snapshot (`week1-clean-baseline`), week summary written
 
-### Up Next
-- [ ] **Day 7** — Review & lab snapshot (VirtualBox snapshot, write lab README)
+### 🟡 Week 2 — Wazuh SIEM Setup (Starting Day 8)
+- [ ] **Day 8** — Deploy Wazuh manager (all-in-one installer)
+- [ ] **Day 9** — Explore Wazuh dashboard
+- [ ] **Day 10** — Install first Linux agent
 
 ---
 
@@ -54,7 +57,7 @@ detection engineering, incident response, and Linux administration.
 | Ubuntu 24.04 LTS (ARM64) | Primary lab OS | ✅ Running |
 | OpenSSH | Remote access via SSH key-based auth | ✅ Configured |
 | systemd | Service management & logging | ✅ Practiced |
-| Wazuh | SIEM & agent management | ⬜ Pending |
+| Wazuh | SIEM & agent management | ⬜ Pending — Day 8 |
 | Suricata | Network IDS | ⬜ Pending |
 | Zeek | Network analysis | ⬜ Pending |
 | Shuffle | SOAR / playbook automation | ⬜ Pending |
@@ -70,7 +73,8 @@ detection engineering, incident response, and Linux administration.
 ```
 soc-lab/
 ├── docs/
-│   └── linux-commands.md        # Linux cheat sheet (nav, permissions, users, SSH, systemd)
+│   ├── linux-commands.md        # Linux cheat sheet (nav, permissions, users, SSH, systemd)
+│   └── week1-summary.md         # Week 1 review — skills learned, challenges, next steps
 ├── scripts/
 │   ├── uptime.sh                # Prints system uptime with hostname and date
 │   ├── processes.sh             # Process monitor with CPU/memory sort, high CPU alert, log output
@@ -109,6 +113,7 @@ soc-lab/
 | 4 | Bash scripting — uptime, process monitor, log analysis scripts | `feat(scripts): add system info, process monitor, and log analysis scripts` |
 | 5 | SSH key-based auth, port forwarding, disabled password login | `chore: configure ssh key-based auth on ubuntu vm` |
 | 6 | systemd service management, journalctl log analysis, unit files | `docs: add systemd and journalctl reference notes` |
+| 7 | Week 1 review, VM snapshot, week summary written | `docs: add week 1 summary and lab baseline snapshot notes` |
 
 ---
 
