@@ -31,7 +31,7 @@ detection engineering, incident response, and Linux administration.
 
 ---
 
-## ✅ Current Status — Day 7 of 120
+## ✅ Current Status — Day 8 of 120
 
 ### ✅ Week 1 Complete — Linux Fundamentals
 - [x] **Day 1** — Installed VirtualBox, created Ubuntu 24.04 LTS ARM64 VM (4GB RAM, 50GB disk)
@@ -42,9 +42,9 @@ detection engineering, incident response, and Linux administration.
 - [x] **Day 6** — systemd & service management (`systemctl`, `journalctl`, unit files)
 - [x] **Day 7** — Week 1 review, VM snapshot (`week1-clean-baseline`), week summary written
 
-### 🟡 Week 2 — Wazuh SIEM Setup (Starting Day 8)
-- [ ] **Day 8** — Deploy Wazuh manager (all-in-one installer)
-- [ ] **Day 9** — Explore Wazuh dashboard
+### 🟡 Week 2 — Wazuh SIEM Setup
+- [x] **Day 8** — Deployed Wazuh 4.12.0 all-in-one (indexer + manager + dashboard), dashboard accessible
+- [ ] **Day 9** — Explore Wazuh dashboard panels and features
 - [ ] **Day 10** — Install first Linux agent
 
 ---
@@ -57,7 +57,7 @@ detection engineering, incident response, and Linux administration.
 | Ubuntu 24.04 LTS (ARM64) | Primary lab OS | ✅ Running |
 | OpenSSH | Remote access via SSH key-based auth | ✅ Configured |
 | systemd | Service management & logging | ✅ Practiced |
-| Wazuh | SIEM & agent management | ⬜ Pending — Day 8 |
+| Wazuh 4.12.0 | SIEM — indexer, manager, dashboard | ✅ Installed |
 | Suricata | Network IDS | ⬜ Pending |
 | Zeek | Network analysis | ⬜ Pending |
 | Shuffle | SOAR / playbook automation | ⬜ Pending |
@@ -74,7 +74,8 @@ detection engineering, incident response, and Linux administration.
 soc-lab/
 ├── docs/
 │   ├── linux-commands.md        # Linux cheat sheet (nav, permissions, users, SSH, systemd)
-│   └── week1-summary.md         # Week 1 review — skills learned, challenges, next steps
+│   ├── week1-summary.md         # Week 1 review — skills learned, challenges, next steps
+│   └── wazuh-install-notes.md  # Wazuh 4.12.0 installation steps, components, troubleshooting
 ├── scripts/
 │   ├── uptime.sh                # Prints system uptime with hostname and date
 │   ├── processes.sh             # Process monitor with CPU/memory sort, high CPU alert, log output
@@ -93,12 +94,15 @@ soc-lab/
 ```
 [ Mac Host ]
      │
-     ├── SSH (port 2222) ──────────────────────────┐
+     ├── SSH   (port 2222) ────────────────────────┐
+     ├── Wazuh (port 8443) ────────────────────────┤
      │                                             ▼
      └── VirtualBox                          UbuntuVM
-           ├── UbuntuVM (Wazuh Manager + Dashboard)   ← main SIEM
-           ├── Windows VM (Wazuh Agent)                ← coming Day 11
-           └── Metasploitable VM (vulnerable target)   ← coming Day 91
+           ├── Wazuh Indexer  (port 9200)
+           ├── Wazuh Manager  (port 1514, 1515)
+           ├── Wazuh Dashboard (port 443 → host 8443)
+           ├── Windows VM (Wazuh Agent)        ← coming Day 11
+           └── Metasploitable VM               ← coming Day 91
 ```
 
 ---
@@ -114,12 +118,14 @@ soc-lab/
 | 5 | SSH key-based auth, port forwarding, disabled password login | `chore: configure ssh key-based auth on ubuntu vm` |
 | 6 | systemd service management, journalctl log analysis, unit files | `docs: add systemd and journalctl reference notes` |
 | 7 | Week 1 review, VM snapshot, week summary written | `docs: add week 1 summary and lab baseline snapshot notes` |
+| 8 | Deployed Wazuh 4.12.0 all-in-one, dashboard accessible via browser | `feat(siem): install wazuh manager and dashboard` |
 
 ---
 
 ## 📚 Key Resources
 
 - [Wazuh Documentation](https://documentation.wazuh.com)
+- [Wazuh Quickstart](https://documentation.wazuh.com/current/quickstart.html)
 - [Linux Journey](https://linuxjourney.com)
 - [MITRE ATT&CK Framework](https://attack.mitre.org)
 - [Atomic Red Team](https://github.com/redcanaryco/atomic-red-team)
