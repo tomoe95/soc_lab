@@ -31,7 +31,7 @@ detection engineering, incident response, and Linux administration.
 
 ---
 
-## ✅ Current Status — Day 8 of 120
+## ✅ Current Status — Day 9 of 120
 
 ### ✅ Week 1 Complete — Linux Fundamentals
 - [x] **Day 1** — Installed VirtualBox, created Ubuntu 24.04 LTS ARM64 VM (4GB RAM, 50GB disk)
@@ -44,7 +44,7 @@ detection engineering, incident response, and Linux administration.
 
 ### 🟡 Week 2 — Wazuh SIEM Setup
 - [x] **Day 8** — Deployed Wazuh 4.12.0 all-in-one (indexer + manager + dashboard), dashboard accessible
-- [ ] **Day 9** — Explore Wazuh dashboard panels and features
+- [x] **Day 9** — Explored Wazuh dashboard, rule files, compliance frameworks, ossec.log health check
 - [ ] **Day 10** — Install first Linux agent
 
 ---
@@ -73,17 +73,18 @@ detection engineering, incident response, and Linux administration.
 ```
 soc-lab/
 ├── docs/
-│   ├── linux-commands.md        # Linux cheat sheet (nav, permissions, users, SSH, systemd)
-│   ├── week1-summary.md         # Week 1 review — skills learned, challenges, next steps
-│   └── wazuh-install-notes.md  # Wazuh 4.12.0 installation steps, components, troubleshooting
+│   ├── linux-commands.md           # Linux cheat sheet (nav, permissions, users, SSH, systemd)
+│   ├── week1-summary.md            # Week 1 review — skills learned, challenges, next steps
+│   ├── wazuh-install-notes.md      # Wazuh 4.12.0 installation steps, components, troubleshooting
+│   └── wazuh-dashboard-notes.md    # Wazuh dashboard overview, rule levels, SSH rules reference
 ├── scripts/
-│   ├── uptime.sh                # Prints system uptime with hostname and date
-│   ├── processes.sh             # Process monitor with CPU/memory sort, high CPU alert, log output
-│   └── count-logs.sh            # Log analyzer — line counts, errors, failed SSH logins
-├── rules/                       # Custom Wazuh detection rules
-├── playbooks/                   # Shuffle SOAR playbooks and runbooks
-├── dashboards/                  # Dashboard screenshots and configs
-├── portfolio/                   # Incident reports and writeups
+│   ├── uptime.sh                   # Prints system uptime with hostname and date
+│   ├── processes.sh                # Process monitor with CPU/memory sort, high CPU alert, log output
+│   └── count-logs.sh               # Log analyzer — line counts, errors, failed SSH logins
+├── rules/                          # Custom Wazuh detection rules
+├── playbooks/                      # Shuffle SOAR playbooks and runbooks
+├── dashboards/                     # Dashboard screenshots and configs
+├── portfolio/                      # Incident reports and writeups
 └── README.md
 ```
 
@@ -119,6 +120,7 @@ soc-lab/
 | 6 | systemd service management, journalctl log analysis, unit files | `docs: add systemd and journalctl reference notes` |
 | 7 | Week 1 review, VM snapshot, week summary written | `docs: add week 1 summary and lab baseline snapshot notes` |
 | 8 | Deployed Wazuh 4.12.0 all-in-one, dashboard accessible via browser | `feat(siem): install wazuh manager and dashboard` |
+| 9 | Explored Wazuh dashboard, rule files, compliance frameworks | `docs: add wazuh dashboard overview notes` |
 
 ---
 
