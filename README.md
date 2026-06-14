@@ -31,7 +31,7 @@ detection engineering, incident response, and Linux administration.
 
 ---
 
-## ✅ Current Status — Day 9 of 120
+## ✅ Current Status — Day 10 of 120
 
 ### ✅ Week 1 Complete — Linux Fundamentals
 - [x] **Day 1** — Installed VirtualBox, created Ubuntu 24.04 LTS ARM64 VM (4GB RAM, 50GB disk)
@@ -45,7 +45,12 @@ detection engineering, incident response, and Linux administration.
 ### 🟡 Week 2 — Wazuh SIEM Setup
 - [x] **Day 8** — Deployed Wazuh 4.12.0 all-in-one (indexer + manager + dashboard), dashboard accessible
 - [x] **Day 9** — Explored Wazuh dashboard, rule files, compliance frameworks, ossec.log health check
-- [ ] **Day 10** — Install first Linux agent
+- [x] **Day 10** — Created AgentVM, configured host-only network, registered and connected first Linux agent
+
+### Up Next — Week 3
+- [ ] **Day 11** — Install Windows agent
+- [ ] **Day 12** — Understand Wazuh rules & decoders
+- [ ] **Day 13** — Write first custom rule
 
 ---
 
@@ -54,10 +59,12 @@ detection engineering, incident response, and Linux administration.
 | Tool | Purpose | Status |
 |---|---|---|
 | VirtualBox | VM hypervisor | ✅ Installed |
-| Ubuntu 24.04 LTS (ARM64) | Primary lab OS | ✅ Running |
+| Ubuntu 24.04 LTS (ARM64) — UbuntuVM | Wazuh manager OS | ✅ Running |
+| Ubuntu 24.04 LTS (ARM64) — AgentVM | Wazuh agent OS | ✅ Running |
 | OpenSSH | Remote access via SSH key-based auth | ✅ Configured |
 | systemd | Service management & logging | ✅ Practiced |
 | Wazuh 4.12.0 | SIEM — indexer, manager, dashboard | ✅ Installed |
+| Wazuh Agent 4.12.0 | Agent on AgentVM — active & reporting | ✅ Connected |
 | Suricata | Network IDS | ⬜ Pending |
 | Zeek | Network analysis | ⬜ Pending |
 | Shuffle | SOAR / playbook automation | ⬜ Pending |
@@ -73,18 +80,19 @@ detection engineering, incident response, and Linux administration.
 ```
 soc-lab/
 ├── docs/
-│   ├── linux-commands.md           # Linux cheat sheet (nav, permissions, users, SSH, systemd)
-│   ├── week1-summary.md            # Week 1 review — skills learned, challenges, next steps
-│   ├── wazuh-install-notes.md      # Wazuh 4.12.0 installation steps, components, troubleshooting
-│   └── wazuh-dashboard-notes.md    # Wazuh dashboard overview, rule levels, SSH rules reference
+│   ├── linux-commands.md               # Linux cheat sheet (nav, permissions, users, SSH, systemd)
+│   ├── week1-summary.md                # Week 1 review — skills learned, challenges, next steps
+│   ├── wazuh-install-notes.md          # Wazuh 4.12.0 installation steps, components, troubleshooting
+│   ├── wazuh-dashboard-notes.md        # Wazuh dashboard overview, rule levels, SSH rules reference
+│   └── wazuh-agent-connection-guide.md # Step-by-step agent connection guide with troubleshooting
 ├── scripts/
-│   ├── uptime.sh                   # Prints system uptime with hostname and date
-│   ├── processes.sh                # Process monitor with CPU/memory sort, high CPU alert, log output
-│   └── count-logs.sh               # Log analyzer — line counts, errors, failed SSH logins
-├── rules/                          # Custom Wazuh detection rules
-├── playbooks/                      # Shuffle SOAR playbooks and runbooks
-├── dashboards/                     # Dashboard screenshots and configs
-├── portfolio/                      # Incident reports and writeups
+│   ├── uptime.sh                       # Prints system uptime with hostname and date
+│   ├── processes.sh                    # Process monitor with CPU/memory sort, high CPU alert, log output
+│   └── count-logs.sh                   # Log analyzer — line counts, errors, failed SSH logins
+├── rules/                              # Custom Wazuh detection rules
+├── playbooks/                          # Shuffle SOAR playbooks and runbooks
+├── dashboards/                         # Dashboard screenshots and configs
+├── portfolio/                          # Incident reports and writeups
 └── README.md
 ```
 
@@ -95,15 +103,17 @@ soc-lab/
 ```
 [ Mac Host ]
      │
-     ├── SSH   (port 2222) ────────────────────────┐
-     ├── Wazuh (port 8443) ────────────────────────┤
-     │                                             ▼
-     └── VirtualBox                          UbuntuVM
-           ├── Wazuh Indexer  (port 9200)
-           ├── Wazuh Manager  (port 1514, 1515)
-           ├── Wazuh Dashboard (port 443 → host 8443)
-           ├── Windows VM (Wazuh Agent)        ← coming Day 11
-           └── Metasploitable VM               ← coming Day 91
+     ├── SSH   (port 2222) ─────────────────────────┐
+     ├── SSH   (port 2223) ─────────────────────┐   │
+     ├── Wazuh (port 8443) ─────────────────────┼───┤
+     │                                          │   ▼
+     └── VirtualBox                             │  UbuntuVM (192.168.56.100)
+           ├── Wazuh Indexer  (port 9200)       │   ├── Wazuh Manager
+           ├── Wazuh Manager  (port 1514, 1515) │   ├── Wazuh Indexer
+           ├── Wazuh Dashboard (port 443→8443)  │   └── Wazuh Dashboard
+           │                                    │
+           └── AgentVM (192.168.56.101) ────────┘
+                 └── Wazuh Agent v4.12.0 (active)
 ```
 
 ---
@@ -121,6 +131,7 @@ soc-lab/
 | 7 | Week 1 review, VM snapshot, week summary written | `docs: add week 1 summary and lab baseline snapshot notes` |
 | 8 | Deployed Wazuh 4.12.0 all-in-one, dashboard accessible via browser | `feat(siem): install wazuh manager and dashboard` |
 | 9 | Explored Wazuh dashboard, rule files, compliance frameworks | `docs: add wazuh dashboard overview notes` |
+| 10 | Created AgentVM, host-only network, registered first Linux agent | `feat(siem): register linux agent to wazuh manager` |
 
 ---
 
