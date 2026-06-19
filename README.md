@@ -31,7 +31,7 @@ detection engineering, incident response, and Linux administration.
 
 ---
 
-## ✅ Current Status — Day 10 of 120
+## ✅ Current Status — Day 11 of 120
 
 ### ✅ Week 1 Complete — Linux Fundamentals
 - [x] **Day 1** — Installed VirtualBox, created Ubuntu 24.04 LTS ARM64 VM (4GB RAM, 50GB disk)
@@ -46,11 +46,12 @@ detection engineering, incident response, and Linux administration.
 - [x] **Day 8** — Deployed Wazuh 4.12.0 all-in-one (indexer + manager + dashboard), dashboard accessible
 - [x] **Day 9** — Explored Wazuh dashboard, rule files, compliance frameworks, ossec.log health check
 - [x] **Day 10** — Created AgentVM, configured host-only network, registered and connected first Linux agent
+- [x] **Day 11** — ~~Windows VM agent~~ Skipped — Mac disk at 100% capacity (460GB used). Windows VM removed to free space. Will revisit when storage is available.
 
 ### Up Next — Week 3
-- [ ] **Day 11** — Install Windows agent
-- [ ] **Day 12** — Understand Wazuh rules & decoders
-- [ ] **Day 13** — Write first custom rule
+- [ ] **Day 12** — Understand Wazuh rules & decoders (rule files, XML structure, MITRE mapping)
+- [ ] **Day 13** — Write first custom detection rule
+- [ ] **Day 14** — Week 2 review & commit
 
 ---
 
@@ -65,6 +66,7 @@ detection engineering, incident response, and Linux administration.
 | systemd | Service management & logging | ✅ Practiced |
 | Wazuh 4.12.0 | SIEM — indexer, manager, dashboard | ✅ Installed |
 | Wazuh Agent 4.12.0 | Agent on AgentVM — active & reporting | ✅ Connected |
+| Windows VM | Wazuh Windows agent | ⏸️ Deferred — disk space |
 | Suricata | Network IDS | ⬜ Pending |
 | Zeek | Network analysis | ⬜ Pending |
 | Shuffle | SOAR / playbook automation | ⬜ Pending |
@@ -132,6 +134,7 @@ soc-lab/
 | 8 | Deployed Wazuh 4.12.0 all-in-one, dashboard accessible via browser | `feat(siem): install wazuh manager and dashboard` |
 | 9 | Explored Wazuh dashboard, rule files, compliance frameworks | `docs: add wazuh dashboard overview notes` |
 | 10 | Created AgentVM, host-only network, registered first Linux agent | `feat(siem): register linux agent to wazuh manager` |
+| 11 | Windows VM skipped — Mac disk full, removed VM to free storage | `docs: skip windows vm day 11 due to disk space constraints` |
 
 ---
 
