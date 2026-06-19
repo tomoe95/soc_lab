@@ -31,7 +31,7 @@ detection engineering, incident response, and Linux administration.
 
 ---
 
-## ✅ Current Status — Day 11 of 120
+## ✅ Current Status — Day 12 of 120
 
 ### ✅ Week 1 Complete — Linux Fundamentals
 - [x] **Day 1** — Installed VirtualBox, created Ubuntu 24.04 LTS ARM64 VM (4GB RAM, 50GB disk)
@@ -46,10 +46,10 @@ detection engineering, incident response, and Linux administration.
 - [x] **Day 8** — Deployed Wazuh 4.12.0 all-in-one (indexer + manager + dashboard), dashboard accessible
 - [x] **Day 9** — Explored Wazuh dashboard, rule files, compliance frameworks, ossec.log health check
 - [x] **Day 10** — Created AgentVM, configured host-only network, registered and connected first Linux agent
-- [x] **Day 11** — ~~Windows VM agent~~ Skipped — Mac disk at 100% capacity (460GB used). Windows VM removed to free space. Will revisit when storage is available.
+- [x] **Day 11** — ~~Windows VM agent~~ Skipped — Mac disk at 100% capacity. Will revisit when storage is available.
+- [x] **Day 12** — Studied Wazuh rules & decoders: 3-phase pipeline, rule chaining, MITRE mapping, wazuh-logtest
 
 ### Up Next — Week 3
-- [ ] **Day 12** — Understand Wazuh rules & decoders (rule files, XML structure, MITRE mapping)
 - [ ] **Day 13** — Write first custom detection rule
 - [ ] **Day 14** — Week 2 review & commit
 
@@ -86,7 +86,8 @@ soc-lab/
 │   ├── week1-summary.md                # Week 1 review — skills learned, challenges, next steps
 │   ├── wazuh-install-notes.md          # Wazuh 4.12.0 installation steps, components, troubleshooting
 │   ├── wazuh-dashboard-notes.md        # Wazuh dashboard overview, rule levels, SSH rules reference
-│   └── wazuh-agent-connection-guide.md # Step-by-step agent connection guide with troubleshooting
+│   ├── wazuh-agent-connection-guide.md # Step-by-step agent connection guide with troubleshooting
+│   └── wazuh-rules-notes.md            # Rules & decoders: 3-phase pipeline, rule structure, MITRE mapping
 ├── scripts/
 │   ├── uptime.sh                       # Prints system uptime with hostname and date
 │   ├── processes.sh                    # Process monitor with CPU/memory sort, high CPU alert, log output
@@ -135,6 +136,7 @@ soc-lab/
 | 9 | Explored Wazuh dashboard, rule files, compliance frameworks | `docs: add wazuh dashboard overview notes` |
 | 10 | Created AgentVM, host-only network, registered first Linux agent | `feat(siem): register linux agent to wazuh manager` |
 | 11 | Windows VM skipped — Mac disk full, removed VM to free storage | `docs: skip windows vm day 11 due to disk space constraints` |
+| 12 | Wazuh rules & decoders: 3-phase pipeline, rule chaining, wazuh-logtest | `docs: add wazuh rules and decoders study notes` |
 
 ---
 
@@ -142,6 +144,7 @@ soc-lab/
 
 - [Wazuh Documentation](https://documentation.wazuh.com)
 - [Wazuh Quickstart](https://documentation.wazuh.com/current/quickstart.html)
+- [Wazuh Rules Documentation](https://documentation.wazuh.com/current/user-manual/ruleset/ruleset-xml-syntax/rules.html)
 - [Linux Journey](https://linuxjourney.com)
 - [MITRE ATT&CK Framework](https://attack.mitre.org)
 - [Atomic Red Team](https://github.com/redcanaryco/atomic-red-team)
