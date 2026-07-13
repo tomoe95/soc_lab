@@ -31,7 +31,7 @@ detection engineering, incident response, and Linux administration.
 
 ---
 
-## ✅ Current Status — Day 12 of 120
+## ✅ Current Status — Day 13 of 120
 
 ### ✅ Week 1 Complete — Linux Fundamentals
 - [x] **Day 1** — Installed VirtualBox, created Ubuntu 24.04 LTS ARM64 VM (4GB RAM, 50GB disk)
@@ -48,10 +48,27 @@ detection engineering, incident response, and Linux administration.
 - [x] **Day 10** — Created AgentVM, configured host-only network, registered and connected first Linux agent
 - [x] **Day 11** — ~~Windows VM agent~~ Skipped — Mac disk at 100% capacity. Will revisit when storage is available.
 - [x] **Day 12** — Studied Wazuh rules & decoders: 3-phase pipeline, rule chaining, MITRE mapping, wazuh-logtest
+- [x] **Day 13** — Wrote and tested 5 custom detection rules (see Custom Rules section below)
 
-### Up Next — Week 3
-- [ ] **Day 13** — Write first custom detection rule
+### Up Next
 - [ ] **Day 14** — Week 2 review & commit
+
+---
+
+## 🔎 Custom Detection Rules (Day 13)
+
+| Rule ID | Level | Detects | MITRE | Status |
+|---|---|---|---|---|
+| 100010 | 7 | New user account created | T1136.001 | ✅ Working |
+| 100011 | 10 | SSH brute force (3+ fails/60s) | T1110 | ✅ Working |
+| 100012 | 12 | File permission changed to 777 | T1222.002 | ⚠️ Unresolved — [see notes](docs/day13-custom-rules-notes.md) |
+| 100013 | 12 | Web shell file created (.php) | T1505.003 | ✅ Working |
+| 100014 | 15 | Successful login after brute force (correlation) | T1110 | ✅ Working |
+| 100015 | 8 | Cron job persistence | T1053.003 | ✅ Working |
+
+> 💡 Rule 100012 was extensively debugged but never resolved — full investigation, all
+> approaches tried, and hypothesis documented in `docs/day13-custom-rules-notes.md`.
+> Understanding *why* a rule fails is as valuable as writing one that works.
 
 ---
 
@@ -87,12 +104,15 @@ soc-lab/
 │   ├── wazuh-install-notes.md          # Wazuh 4.12.0 installation steps, components, troubleshooting
 │   ├── wazuh-dashboard-notes.md        # Wazuh dashboard overview, rule levels, SSH rules reference
 │   ├── wazuh-agent-connection-guide.md # Step-by-step agent connection guide with troubleshooting
-│   └── wazuh-rules-notes.md            # Rules & decoders: 3-phase pipeline, rule structure, MITRE mapping
+│   ├── wazuh-rules-notes.md            # Rules & decoders: 3-phase pipeline, rule structure, MITRE mapping
+│   └── day13-custom-rules-notes.md     # Full custom rule writing + debugging journey (rule 100012)
 ├── scripts/
 │   ├── uptime.sh                       # Prints system uptime with hostname and date
 │   ├── processes.sh                    # Process monitor with CPU/memory sort, high CPU alert, log output
 │   └── count-logs.sh                   # Log analyzer — line counts, errors, failed SSH logins
-├── rules/                              # Custom Wazuh detection rules
+├── rules/
+│   ├── local_rules.xml                 # All 5 custom detection rules
+│   └── README.md                       # Consolidated description of each custom rule
 ├── playbooks/                          # Shuffle SOAR playbooks and runbooks
 ├── dashboards/                         # Dashboard screenshots and configs
 ├── portfolio/                          # Incident reports and writeups
@@ -137,6 +157,7 @@ soc-lab/
 | 10 | Created AgentVM, host-only network, registered first Linux agent | `feat(siem): register linux agent to wazuh manager` |
 | 11 | Windows VM skipped — Mac disk full, removed VM to free storage | `docs: skip windows vm day 11 due to disk space constraints` |
 | 12 | Wazuh rules & decoders: 3-phase pipeline, rule chaining, wazuh-logtest | `docs: add wazuh rules and decoders study notes` |
+| 13 | Wrote 5 custom detection rules — user creation, brute force, web shell, correlation, cron persistence | `docs: consolidate all custom rule descriptions into rules README` |
 
 ---
 
