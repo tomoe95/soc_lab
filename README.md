@@ -22,7 +22,7 @@ detection engineering, incident response, and Linux administration.
 | Level | Focus | Status |
 |---|---|---|
 | **Level 1** | Linux fundamentals + Wazuh SIEM setup | ✅ Complete |
-| **Level 2** | Network detection (Suricata, Zeek) + threat simulation | ⬜ Not Started |
+| **Level 2** | Network detection (Suricata, Zeek) + threat simulation | 🟡 In Progress |
 | **Level 3** | Incident response automation (Shuffle SOAR) | ⬜ Not Started |
 | **Level 4** | Honeypot, threat intel (MISP), cloud (AWS) | ⬜ Not Started |
 | **Extra 1** | Log analysis scripts (Python/Bash) | ⬜ Not Started |
@@ -31,7 +31,7 @@ detection engineering, incident response, and Linux administration.
 
 ---
 
-## ✅ Current Status — Day 14 of 120
+## ✅ Current Status — Day 15 of 120
 
 ### ✅ Week 1 Complete — Linux Fundamentals
 - [x] **Day 1** — Installed VirtualBox, created Ubuntu 24.04 LTS ARM64 VM (4GB RAM, 50GB disk)
@@ -51,12 +51,12 @@ detection engineering, incident response, and Linux administration.
 - [x] **Day 13** — Wrote and tested 5 custom detection rules (see Custom Rules section below)
 - [x] **Day 14** — Week 2 review: VM snapshots, daily startup automation script, scoped passwordless sudo
 
-### 🟡 Week 3 — Network Monitoring (Starting Day 15)
-- [ ] **Day 15** — Understand Linux log sources
+### 🟡 Week 3 — Network Monitoring
+- [x] **Day 15** — Explored Linux log sources, log rotation, live filtering; discovered SSH hardening changes brute-force detection strategy
 - [ ] **Day 16** — Configure Wazuh to ingest custom log files
 - [ ] **Day 17** — grep, awk, sed for log parsing
 - [ ] **Day 18** — File Integrity Monitoring (FIM) setup
-- [ ] **Day 19** — Simulate a brute force attack
+- [ ] **Day 19** — Simulate a brute force attack ⚠️ *plan needs revisiting — see Day 15 notes*
 - [ ] **Day 20** — Level 1 wrap-up — architecture diagram
 
 ---
@@ -74,6 +74,11 @@ detection engineering, incident response, and Linux administration.
 
 > 💡 Rule 100012 was extensively debugged but never resolved — full investigation, all
 > approaches tried, and hypothesis documented in `docs/day13-custom-rules-notes.md`.
+>
+> ⚠️ Rule 100011 was tested via username enumeration (`Invalid user`), not actual
+> password brute force, since `PasswordAuthentication no` (Day 5) prevents traditional
+> "Failed password" log entries. See `docs/linux-log-sources.md` for details — Day 19's
+> brute force simulation plan will need adjusting accordingly.
 
 ---
 
@@ -105,15 +110,16 @@ detection engineering, incident response, and Linux administration.
 soc-lab/
 ├── docs/
 │   ├── linux-commands.md               # Linux cheat sheet (nav, permissions, users, SSH, systemd)
+│   ├── linux-log-sources.md            # Log files, rotation, live filtering, auth hardening insights
 │   ├── week1-summary.md                # Week 1 review — skills learned, challenges, next steps
+│   ├── week2-summary.md                # Week 2 review — Wazuh setup, lessons, challenges
 │   ├── wazuh-install-notes.md          # Wazuh 4.12.0 installation steps, components, troubleshooting
 │   ├── wazuh-dashboard-notes.md        # Wazuh dashboard overview, rule levels, SSH rules reference
 │   ├── wazuh-agent-connection-guide.md # Step-by-step agent connection guide with troubleshooting
 │   ├── wazuh-rules-notes.md            # Rules & decoders: 3-phase pipeline, rule structure, MITRE mapping
 │   ├── day13-custom-rules-notes.md     # Full custom rule writing + debugging journey (rule 100012)
 │   ├── day14-week2-review-notes.md     # Week 2 review, snapshots, sudoers automation security notes
-│   ├── start-lab-script-guide.md       # start-lab.sh explained line by line
-│   └── week2-summary.md                # Week 2 full recap — skills, lessons, challenges
+│   └── start-lab-script-guide.md       # start-lab.sh explained line by line
 ├── scripts/
 │   ├── uptime.sh                       # Prints system uptime with hostname and date
 │   ├── processes.sh                    # Process monitor with CPU/memory sort, high CPU alert, log output
@@ -173,6 +179,7 @@ Daily startup: ~/soc-lab/scripts/start-lab.sh
 | 12 | Wazuh rules & decoders: 3-phase pipeline, rule chaining, wazuh-logtest | `docs: add wazuh rules and decoders study notes` |
 | 13 | Wrote 5 custom detection rules — user creation, brute force, web shell, correlation, cron persistence | `feat(rules): add cron persistence detection rule - completes 5 custom rule set` |
 | 14 | Week 2 review, VM snapshots, start-lab.sh automation, scoped sudoers | `docs: add day 14 week 2 review and start-lab.sh script guide` |
+| 15 | Linux log sources, rotation, live filtering, discovered SSH hardening impact on brute-force testing | `docs: add linux log sources reference guide` |
 
 ---
 
