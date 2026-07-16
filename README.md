@@ -31,7 +31,7 @@ detection engineering, incident response, and Linux administration.
 
 ---
 
-## ✅ Current Status — Day 15 of 120
+## ✅ Current Status — Day 17 of 120
 
 ### ✅ Week 1 Complete — Linux Fundamentals
 - [x] **Day 1** — Installed VirtualBox, created Ubuntu 24.04 LTS ARM64 VM (4GB RAM, 50GB disk)
@@ -53,15 +53,15 @@ detection engineering, incident response, and Linux administration.
 
 ### 🟡 Week 3 — Network Monitoring
 - [x] **Day 15** — Explored Linux log sources, log rotation, live filtering; discovered SSH hardening changes brute-force detection strategy
-- [ ] **Day 16** — Configure Wazuh to ingest custom log files
-- [ ] **Day 17** — grep, awk, sed for log parsing
+- [x] **Day 16** — Configured Wazuh to ingest a custom application log, wrote rule 100016 targeting it via `<location>`
+- [x] **Day 17** — grep, awk, sed for log parsing — field extraction, top-N pipelines, time-range filtering
 - [ ] **Day 18** — File Integrity Monitoring (FIM) setup
 - [ ] **Day 19** — Simulate a brute force attack ⚠️ *plan needs revisiting — see Day 15 notes*
 - [ ] **Day 20** — Level 1 wrap-up — architecture diagram
 
 ---
 
-## 🔎 Custom Detection Rules (Day 13)
+## 🔎 Custom Detection Rules
 
 | Rule ID | Level | Detects | MITRE | Status |
 |---|---|---|---|---|
@@ -71,6 +71,7 @@ detection engineering, incident response, and Linux administration.
 | 100013 | 12 | Web shell file created (.php) | T1505.003 | ✅ Working |
 | 100014 | 15 | Successful login after brute force (correlation) | T1110 | ✅ Working |
 | 100015 | 8 | Cron job persistence | T1053.003 | ✅ Working |
+| 100016 | 10 | Authentication failure in custom app log | — | ✅ Working |
 
 > 💡 Rule 100012 was extensively debugged but never resolved — full investigation, all
 > approaches tried, and hypothesis documented in `docs/day13-custom-rules-notes.md`.
@@ -119,14 +120,16 @@ soc-lab/
 │   ├── wazuh-rules-notes.md            # Rules & decoders: 3-phase pipeline, rule structure, MITRE mapping
 │   ├── day13-custom-rules-notes.md     # Full custom rule writing + debugging journey (rule 100012)
 │   ├── day14-week2-review-notes.md     # Week 2 review, snapshots, sudoers automation security notes
+│   ├── day16-custom-log-ingestion.md   # Custom log file ingestion into Wazuh, rule 100016
+│   ├── day17-grep-awk-sed.md           # grep/awk/sed log parsing techniques and debugging lessons
 │   └── start-lab-script-guide.md       # start-lab.sh explained line by line
 ├── scripts/
 │   ├── uptime.sh                       # Prints system uptime with hostname and date
 │   ├── processes.sh                    # Process monitor with CPU/memory sort, high CPU alert, log output
-│   ├── count-logs.sh                   # Log analyzer — line counts, errors, failed SSH logins
+│   ├── count-logs.sh                   # Log analyzer — line counts, errors, top attacked usernames
 │   └── start-lab.sh                    # Daily automation: checks network + Wazuh service health on both VMs
 ├── rules/
-│   ├── local_rules.xml                 # All 5 custom detection rules
+│   ├── local_rules.xml                 # All 6 custom detection rules
 │   └── README.md                       # Consolidated description of each custom rule
 ├── playbooks/                          # Shuffle SOAR playbooks and runbooks
 ├── dashboards/                         # Dashboard screenshots and configs
@@ -149,7 +152,7 @@ soc-lab/
            ├── Wazuh Indexer  (port 9200)       │   ├── Wazuh Manager
            ├── Wazuh Manager  (port 1514, 1515) │   ├── Wazuh Indexer
            ├── Wazuh Dashboard (port 443→8443)  │   └── Wazuh Dashboard
-           │                                    │
+           │                                    │   └── /var/log/myapp/app.log (custom log source)
            └── AgentVM (192.168.56.101) ────────┘
                  └── Wazuh Agent v4.12.0 (active)
 
@@ -180,6 +183,8 @@ Daily startup: ~/soc-lab/scripts/start-lab.sh
 | 13 | Wrote 5 custom detection rules — user creation, brute force, web shell, correlation, cron persistence | `feat(rules): add cron persistence detection rule - completes 5 custom rule set` |
 | 14 | Week 2 review, VM snapshots, start-lab.sh automation, scoped sudoers | `docs: add day 14 week 2 review and start-lab.sh script guide` |
 | 15 | Linux log sources, rotation, live filtering, discovered SSH hardening impact on brute-force testing | `docs: add linux log sources reference guide` |
+| 16 | Configured Wazuh to ingest custom application log, wrote rule 100016 | `feat(siem): ingest custom application log and add matching detection rule` |
+| 17 | grep, awk, sed log parsing — field extraction, top-N pipelines, time-range filtering | `feat(scripts): add log parsing examples with grep, awk, and sed` |
 
 ---
 
