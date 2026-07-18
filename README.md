@@ -31,7 +31,7 @@ detection engineering, incident response, and Linux administration.
 
 ---
 
-## ✅ Current Status — Day 17 of 120
+## ✅ Current Status — Day 18 of 120
 
 ### ✅ Week 1 Complete — Linux Fundamentals
 - [x] **Day 1** — Installed VirtualBox, created Ubuntu 24.04 LTS ARM64 VM (4GB RAM, 50GB disk)
@@ -55,7 +55,7 @@ detection engineering, incident response, and Linux administration.
 - [x] **Day 15** — Explored Linux log sources, log rotation, live filtering; discovered SSH hardening changes brute-force detection strategy
 - [x] **Day 16** — Configured Wazuh to ingest a custom application log, wrote rule 100016 targeting it via `<location>`
 - [x] **Day 17** — grep, awk, sed for log parsing — field extraction, top-N pipelines, time-range filtering
-- [ ] **Day 18** — File Integrity Monitoring (FIM) setup
+- [x] **Day 18** — Full FIM lifecycle testing: file creation, content diff, ownership changes, deletion — mapped to PCI DSS 11.5
 - [ ] **Day 19** — Simulate a brute force attack ⚠️ *plan needs revisiting — see Day 15 notes*
 - [ ] **Day 20** — Level 1 wrap-up — architecture diagram
 
@@ -75,6 +75,9 @@ detection engineering, incident response, and Linux administration.
 
 > 💡 Rule 100012 was extensively debugged but never resolved — full investigation, all
 > approaches tried, and hypothesis documented in `docs/day13-custom-rules-notes.md`.
+> Day 18's FIM testing confirmed rule 550 (which 100012 tries to chain off) fires
+> reliably for both content and ownership changes — reinforcing that the open
+> question is specifically about custom `if_sid` chaining, not FIM itself.
 >
 > ⚠️ Rule 100011 was tested via username enumeration (`Invalid user`), not actual
 > password brute force, since `PasswordAuthentication no` (Day 5) prevents traditional
@@ -94,6 +97,7 @@ detection engineering, incident response, and Linux administration.
 | systemd | Service management & logging | ✅ Practiced |
 | Wazuh 4.12.0 | SIEM — indexer, manager, dashboard | ✅ Installed |
 | Wazuh Agent 4.12.0 | Agent on AgentVM — active & reporting | ✅ Connected |
+| File Integrity Monitoring | Full lifecycle tested (add/modify/delete) | ✅ Verified |
 | Windows VM | Wazuh Windows agent | ⏸️ Deferred — disk space |
 | Suricata | Network IDS | ⬜ Pending |
 | Zeek | Network analysis | ⬜ Pending |
@@ -122,6 +126,7 @@ soc-lab/
 │   ├── day14-week2-review-notes.md     # Week 2 review, snapshots, sudoers automation security notes
 │   ├── day16-custom-log-ingestion.md   # Custom log file ingestion into Wazuh, rule 100016
 │   ├── day17-grep-awk-sed.md           # grep/awk/sed log parsing techniques and debugging lessons
+│   ├── day18-fim-setup.md              # Full FIM lifecycle testing — add/modify/ownership/delete
 │   └── start-lab-script-guide.md       # start-lab.sh explained line by line
 ├── scripts/
 │   ├── uptime.sh                       # Prints system uptime with hostname and date
@@ -152,7 +157,7 @@ soc-lab/
            ├── Wazuh Indexer  (port 9200)       │   ├── Wazuh Manager
            ├── Wazuh Manager  (port 1514, 1515) │   ├── Wazuh Indexer
            ├── Wazuh Dashboard (port 443→8443)  │   └── Wazuh Dashboard
-           │                                    │   └── /var/log/myapp/app.log (custom log source)
+           │                                    │   └── FIM: /home/tt/watched, /etc/myapp-config
            └── AgentVM (192.168.56.101) ────────┘
                  └── Wazuh Agent v4.12.0 (active)
 
@@ -185,6 +190,7 @@ Daily startup: ~/soc-lab/scripts/start-lab.sh
 | 15 | Linux log sources, rotation, live filtering, discovered SSH hardening impact on brute-force testing | `docs: add linux log sources reference guide` |
 | 16 | Configured Wazuh to ingest custom application log, wrote rule 100016 | `feat(siem): ingest custom application log and add matching detection rule` |
 | 17 | grep, awk, sed log parsing — field extraction, top-N pipelines, time-range filtering | `feat(scripts): add log parsing examples with grep, awk, and sed` |
+| 18 | Full FIM lifecycle testing — add/modify/ownership/delete, mapped to PCI DSS 11.5 | `feat(config): enable comprehensive fim on sensitive directory paths` |
 
 ---
 
